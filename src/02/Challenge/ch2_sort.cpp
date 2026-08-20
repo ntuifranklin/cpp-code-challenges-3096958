@@ -8,6 +8,14 @@
 
 #include <iostream>
 
+void swap(int * a, int * b){
+    if(a == NULL || b == NULL )
+    return;
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 // sort_array()
 // Summary: This function receives an array of integers and sorts it in ascending order.
 // Arguments:
@@ -15,16 +23,37 @@
 //           n: The size of the array.
 // Returns: A boolean value: True on success, false otherwise.
 bool sort_array(int *arr, int n){
+    if (arr == NULL)
+        return true;
+    if (n == 1)
+        return true;
+    
+    if ( n == 2 && arr[0] <= arr[1])
+    return true; 
 
+    if ( n == 2 && arr[0] > arr[1]){
+        swap(arr, arr+1);
+        return true;
+    }
+    
+    
     // Write your code here
-
-    return false;
+    int i,j=n-1, smallest_index;
+    for(i=0 ; i<n-1; i++){
+        smallest_index = i;
+        for(j=i+1; j<n; j++){
+            if (arr[j] < arr[smallest_index])
+                smallest_index = j;
+        }
+        swap(arr+i, arr+smallest_index);    
+    }
+    return true;
 }
 
 // Main function
 int main(){
     // The following array will be treated as an array of length len. 
-    const int len = 7; // Don't exceed the length of the array below!
+    const int len = 10; // Don't exceed the length of the array below!
     int array[] = {2, 9, 4, 3, 5, 1, 6, 8, 0, 7};
 
     // Print the original array
